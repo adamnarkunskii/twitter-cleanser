@@ -12,6 +12,7 @@ from settings import (
 
 def init_api():
     return twitter.Api(
+        sleep_on_rate_limit=True,
         consumer_key=CONSUMER_KEY,
         consumer_secret=CONSUMER_SECRET,
         access_token_key=ACCESS_TOKEN_KEY,
@@ -32,7 +33,6 @@ def main():
         if not statuses:
             break
         delete_favorites(api, statuses)
-        time.sleep(1)
 
 
 if __name__ == "__main__":
