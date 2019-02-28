@@ -7,6 +7,7 @@ from settings import (
     CONSUMER_SECRET,
     ACCESS_TOKEN_KEY,
     ACCESS_TOKEN_SECRET,
+    USER_NAME,
 )
 
 
@@ -26,6 +27,12 @@ def delete_favorites(api, statuses):
         print(status.user.name, status.created_at)
 
 
+def delete_tweets(api):
+    while True:
+        api.DestroyStatus(api.GetUser(screen_name=USER_NAME).status.id)
+        print(api.GetUser(screen_name=USER_NAME).statuses_count, "tweets remaining")
+
+
 def main():
     api = init_api()
     while True:
@@ -33,6 +40,7 @@ def main():
         if not statuses:
             break
         delete_favorites(api, statuses)
+        delete_tweets(api)
 
 
 if __name__ == "__main__":
